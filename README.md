@@ -1,12 +1,13 @@
 ﻿
-**Automated ELK Stack Deployment**
+# **Automated ELK Stack Deployment**
 
 The files in this repository were used to configure the network depicted below.
 
 
-![Diagram
 
-Description automatically generated](Aspose.Words.367b46cb-0971-43d4-80c2-9807052bc998.001.png)
+![](https://github.com/gensonator/Automated-ELK-Stack-Deployment1/blob/main/Diagrams/ELK%20Stack%20Diagram.drawio.png)
+
+
 
 
 These files have been tested and used to generate a live ELK deployment on Azure.  They can be used to either recreate the entire deployment pictured above.  Alternatively, select portions of playbook file may be used to install only certain pieces of it.
@@ -24,7 +25,7 @@ This document contains the following details:
 - How to Use the Ansible Build
 
 
-**Description of the Topology**
+## **Description of the Topology**
 
 The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D\*mn Vulnerable Web Application.
 
@@ -54,7 +55,7 @@ The configuration details of each machine may be found below.
 |ELK-VM|Monitoring /Analytics Server|10.1.0.4|Linux Ubuntu Server 18.04 LTS|
 
 
-**Access Policies**
+## **Access Policies**
 
 The machines on the internal network are not exposed to the public Internet.   
 
@@ -80,15 +81,23 @@ A summary of the access policies in place can be found in the table below.
 
 
 
-**ELK Configuration**
+## **ELK Configuration**
 
 Ansible was used to automate the configuration of the ELK machine.  No configuration was performed manually, which is advantageous because it eliminates the risk of human error and ensures consistent configuration on specific hosts where the playbooks are applied.  
 
 The playbook implements the following tasks:
 
+- Install Docker.io
+- Install Python3-pip
+- Install docker pip module
+- Increase Virtual Memory
+- Download and Launch ELK Docker Container 
+- Enable docker service on startup 
+
+
 ` `***The following identifies the purpose of the playbook and where the tasks will be applied***
 
-\- name : Configure Elk VM with Docker indicates that his 
+\- name : Configure Elk VM with Docker 
 
 `  `hosts: elk
 
@@ -96,7 +105,7 @@ The playbook implements the following tasks:
 
 `  `tasks:
 
-***This section installs docker .io using apt module:***
+***This section installs docker.io using apt module:***
 
 `     `- name: Install docker.io 
 
@@ -172,13 +181,13 @@ The playbook implements the following tasks:
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance on the Elk-VM.
 
-![Text
-
-Description automatically generated](Aspose.Words.367b46cb-0971-43d4-80c2-9807052bc998.002.png)
+![](https://github.com/gensonator/Automated-ELK-Stack-Deployment1/blob/main/Images/docker_ps.png)
 
 
 
-**Target Machines & Beats**
+
+
+## **Target Machines & Beats**
 
 This ELK server is configured to monitor the following machines:
 
@@ -190,39 +199,37 @@ We have installed the following Beats on these machines:
 
 
 
-**Using the Playbook**
+## **Using the Playbook**
 
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the Jump-Box-Provisioner and follow the steps below:
 
-**ELK Playbook:**
+### **ELK Playbook:**
 
 - Go to the **/etc/ansible** directory of the docker container that you are running
 - In this same directory, find the **hosts** file then edit this to include the IP addresses of the **webservers** and **elk** hosts where you are going to apply the playbook
 
-![Text
+![](https://github.com/gensonator/Automated-ELK-Stack-Deployment1/blob/main/Images/hosts.png)
 
-Description automatically generated](Aspose.Words.367b46cb-0971-43d4-80c2-9807052bc998.003.png)
 
 
 - In the same directory, find the **ansible.cfg** file then edit the remote user to the user account that you allowed on the webserver (Redadmin in the screenshot)
 
-![Text
+![](https://github.com/gensonator/Automated-ELK-Stack-Deployment1/blob/main/Images/remote_user.png)
 
-Description automatically generated](Aspose.Words.367b46cb-0971-43d4-80c2-9807052bc998.004.png)
+
 
 - Copy the Install-elk.yml role to  the /etc/ansible directory
 - Run the playbook by typing **ansible-playbook install-elk.yml**
 - SSH to the ELK VM to check that the installation worked as expected.
 - Run **docker ps** to check that the **elk** is running
 
-![Text
-
-Description automatically generated](Aspose.Words.367b46cb-0971-43d4-80c2-9807052bc998.005.png)
+![](https://github.com/gensonator/Automated-ELK-Stack-Deployment1/blob/main/Images/docker_ps.png)
 
 
-**Filebeat Playbook:**
+
+### **Filebeat Playbook:**
 
 - Copy the filebeat-playbook.yml file to /etc/ansible/roles/
 - Copy the filebeat-config.yml file to /etc/ansible/files directory 
@@ -230,50 +237,29 @@ Description automatically generated](Aspose.Words.367b46cb-0971-43d4-80c2-980705
 
 Line 1106:
 
-![A picture containing timeline
+![](https://github.com/gensonator/Automated-ELK-Stack-Deployment1/blob/main/Images/line1106%20filebeat-config.yml.png)
 
-Description automatically generated](Aspose.Words.367b46cb-0971-43d4-80c2-9807052bc998.006.png)
+
 
 Line 1806:
 
-![Text
+![](https://github.com/gensonator/Automated-ELK-Stack-Deployment1/blob/main/Images/line1806%20filebeat-config.yml.png)
 
-Description automatically generated with medium confidence](Aspose.Words.367b46cb-0971-43d4-80c2-9807052bc998.007.png)
+
 
 - Run the playbook filebeat-playbook.yml by typing **ansible-playbook filebeat-playbook.yml** in /etc/ansible/roles/ directory
 - Use a browser to navigate to http://[ELK-VM public IP}:5601/app/kibana) to check that the installation worked as expected.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 **Screenshot of Filebeat Dashboard:** 
 
-![Timeline
-
-Description automatically generated with medium confidence](Aspose.Words.367b46cb-0971-43d4-80c2-9807052bc998.008.png)
+![](https://github.com/gensonator/Automated-ELK-Stack-Deployment1/blob/main/Images/Filebeat-screenshot.png)
 
 
-**Metricbeat:**
+
+
+### **Metricbeat:**
 
 - Copy the metricbeat-playbook.yml file to /etc/ansible/roles/
 - Copy the metricbeat-config.yml file to /etc/ansible/files directory
@@ -281,15 +267,15 @@ Description automatically generated with medium confidence](Aspose.Words.367b46c
 
 Line 62
 
-![Graphical user interface, text
+![](https://github.com/gensonator/Automated-ELK-Stack-Deployment1/blob/main/Images/line62_metricbeat-config.yml.png)
 
-Description automatically generated](Aspose.Words.367b46cb-0971-43d4-80c2-9807052bc998.009.png)
+
 
 Line 96:
 
-![Graphical user interface, text
+![](https://github.com/gensonator/Automated-ELK-Stack-Deployment1/blob/main/Images/line96_metricbeat-config.yml.png)
 
-Description automatically generated](Aspose.Words.367b46cb-0971-43d4-80c2-9807052bc998.010.png)
+
 
 - Run the playbook metricbeat-playbook.yml by typing **ansible-playbook metricbeat-playbook.yml** in /etc/ansible/roles/ directory
 - Use a browser to navigate to http://(ELK-VM public IP) to check that the installation worked as expected.
@@ -298,23 +284,23 @@ Description automatically generated](Aspose.Words.367b46cb-0971-43d4-80c2-980705
 
 **Screenshot of Metricbeats Dashboard:**
 
-![Graphical user interface, application
+![](https://github.com/gensonator/Automated-ELK-Stack-Deployment1/blob/main/Images/Metricbeat-screenshot.png)
 
-Description automatically generated](Aspose.Words.367b46cb-0971-43d4-80c2-9807052bc998.011.png)
+
 
 
 
 The **playbook** is the YAML file – file with extension .**yml:**
 
-**Ansible Playbook 		Description**
+### **Ansible Playbook 		Description**
 
-install-elk.yml			- installs ELK stack on the Elk-VM server
+[install-elk.yml](https://github.com/gensonator/Automated-ELK-Stack-Deployment1/blob/main/Ansible/elk-playbook.yml)			- installs ELK stack on the Elk-VM server
 
-my-playbook.yml		- installs DVWA service on the webservers
+[dvwa-playbook.yml](https://github.com/gensonator/Automated-ELK-Stack-Deployment1/blob/main/Ansible/dvwa-playbook.yml)	- installs DVWA service on the webservers
 
-filebeat-playbook.yml		- installs Filebeat on the web servers
+[filebeat-playbook.yml](https://github.com/gensonator/Automated-ELK-Stack-Deployment1/blob/main/Ansible/filebeat-playbook.yml)		- installs Filebeat on the web servers
 
-metricbeat-playbook.yml	- installs Metricbeat on the web servers
+[metricbeat-playbook.yml](https://github.com/gensonator/Automated-ELK-Stack-Deployment1/blob/main/Ansible/metricbeat-playbook.yml)	- installs Metricbeat on the web servers
 
 Which file do you update to make Ansible run the playbook on a specific machine? 
 
